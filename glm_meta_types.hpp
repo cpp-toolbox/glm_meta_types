@@ -15,10 +15,14 @@ inline meta_utils::MetaType VEC2 = meta_utils::MetaType(
     "  throw std::invalid_argument(\"Invalid glm::vec2 string\"); }",
 
     // to-string lambda
+    // NOTE: this requires the inclusion of glm_printing
     "[](const glm::vec2 &v) { "
-    "  std::ostringstream oss; "
-    "  oss << '(' << v.x << \", \" << v.y << ')'; "
-    "  return oss.str(); }",
+    " int precision =  std::numeric_limits<float>::max_digits10;"
+    " std::ostringstream oss;"
+    " oss << std::fixed << std::setprecision(precision);"
+    " oss << '(' << v.x << ',' << ' ' << v.y << ')';"
+    " return oss.str();"
+    "}",
 
     // serialize-to-bytes
     "[](const glm::vec2 &v) { "
@@ -53,9 +57,12 @@ inline meta_utils::MetaType VEC3 = meta_utils::MetaType(
 
     // to-string lambda
     "[](const glm::vec3 &v) { "
-    "  std::ostringstream oss; "
-    "  oss << '(' << v.x << \", \" << v.y << \", \" << v.z << ')'; "
-    "  return oss.str(); }",
+    " int precision =  std::numeric_limits<float>::max_digits10;"
+    " std::ostringstream oss;"
+    " oss << std::fixed << std::setprecision(precision);"
+    " oss << '(' << v.x << ',' << ' ' << v.y << ',' << ' ' << v.z <<  ')';"
+    " return oss.str();"
+    "}",
 
     // serialize-to-bytes
     "[](const glm::vec3 &v) { "
